@@ -217,21 +217,18 @@ Page({
       cancelText: '取消',
       success: (res) => {
         if (res.confirm) {
-          // 1. 先清除所有本地存储数据
-          wx.clearStorageSync();
+          // 1. 先清除登录相关的本地存储数据
+          wx.removeStorageSync('userInfo');
+          wx.removeStorageSync('isLogin');
+          wx.removeStorageSync('hasLogin');
           // 2. 重置页面数据
           this.setData({ 
             isLogin: false, 
             userInfo: null, 
-            myFunds: [],
             currentTab: 0 
           });
           // 3. 显示成功提示
           wx.showToast({ title: '已退出登录', icon: 'success', duration: 1500 });
-          // 4. 延迟后跳转到登录页面
-          setTimeout(() => {
-            wx.reLaunch({ url: '/pages/login/login' });
-          }, 1500);
         }
       }
     });
