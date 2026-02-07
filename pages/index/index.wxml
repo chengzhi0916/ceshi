@@ -106,6 +106,8 @@
         </view>
       </view>
       
+      <button class="logout-btn" bindtap="onLogout">退出登录</button>
+      
       <view class="footer-tip">—— 让记录更简单 ——</view>
     </view>
   </view>

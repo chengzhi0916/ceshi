@@ -207,5 +207,24 @@ Page({
     wx.setStorageSync('my_funds', newList);
     this.refreshAll();
     wx.showToast({ title: '添加成功' });
+  },
+
+  onLogout() {
+    wx.showModal({
+      title: '退出登录',
+      content: '确定要退出登录吗？',
+      confirmText: '确定',
+      cancelText: '取消',
+      success: (res) => {
+        if (res.confirm) {
+          wx.clearStorageSync();
+          this.setData({ isLogin: false, userInfo: null });
+          wx.showToast({ title: '已退出登录', icon: 'success' });
+          setTimeout(() => {
+            wx.navigateTo({ url: '/pages/login/login' });
+          }, 1500);
+        }
+      }
+    });
   }
 });

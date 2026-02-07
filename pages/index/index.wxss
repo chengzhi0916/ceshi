@@ -132,7 +132,18 @@ page {
 .title { font-size: 30rpx; color: #333; font-weight: 500; }
 .arrow { color: #ddd; font-size: 28rpx; font-family: monospace; }
 .desc { color: #bbb; font-size: 26rpx; }
-.footer-tip { text-align: center; margin-top: 60rpx; color: #ddd; font-size: 22rpx; letter-spacing: 2rpx; }
+.logout-btn { 
+  width: 90% !important; 
+  height: 88rpx; 
+  background: #ff5555 !important; 
+  color: #fff; 
+  border-radius: 16rpx; 
+  margin: 40rpx auto; 
+  font-size: 30rpx; 
+  border: none;
+}
+.logout-btn:active { background: #e74c3c !important; opacity: 0.9; }
+.footer-tip { text-align: center; margin-top: 60rpx; color: #ddd; font-size: 22rpx; letter-spacing: 2rpx; margin-bottom: 120rpx; }
 
 /* ... 您原有的代码 ... */
 
