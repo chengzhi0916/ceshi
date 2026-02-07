@@ -1,0 +1,147 @@
+page { 
+  background: #f6f7f8; 
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, sans-serif; 
+  box-sizing: border-box; 
+  padding-bottom: 40rpx;
+}
+
+.container { width: 100%; box-sizing: border-box; padding: 20rpx 16rpx; display: flex; flex-direction: column; }
+.mine-container { padding: 0; background: #fff; min-height: 100vh; }
+
+.header-action-area { width: 100%; margin-bottom: 24rpx; box-sizing: border-box; }
+
+/* 顶部双按钮样式 */
+.top-menu-group { display: flex; justify-content: space-between; margin-bottom: 20rpx; }
+.menu-btn { width: 48%; height: 80rpx; border-radius: 16rpx; display: flex; align-items: center; justify-content: center; font-size: 28rpx; font-weight: bold; box-shadow: 0 4rpx 10rpx rgba(0,0,0,0.03); }
+.blue-theme { background: #eef7fe; color: #3a8cff; border: 1rpx solid rgba(58, 140, 255, 0.1); }
+.red-theme { background: #fff5f5; color: #ff525d; border: 1rpx solid rgba(255, 82, 93, 0.1); }
+
+.main-add-btn {
+  width: 100% !important; height: 90rpx;
+  background: linear-gradient(90deg, #2b85e4, #00d2ff); 
+  color: #fff; border-radius: 16rpx; font-size: 32rpx; font-weight: bold;
+  box-shadow: 0 4rpx 12rpx rgba(43, 133, 228, 0.3);
+  display: flex; align-items: center; justify-content: center;
+}
+.plus-icon { font-size: 40rpx; margin-right: 10rpx; margin-top: -4rpx; }
+.data-tip-row { margin-top: 16rpx; font-size: 22rpx; color: #999; text-align: center; }
+.divider { margin: 0 10rpx; color: #ddd; }
+
+.list-header { width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 12rpx; padding: 0 8rpx; box-sizing: border-box; }
+.my-title { font-size: 30rpx; font-weight: bold; color: #333; }
+
+/* 卡片样式 */
+.finance-card {
+  width: 100%; box-sizing: border-box; padding: 24rpx; 
+  margin-bottom: 16rpx; background: #fff; border-radius: 16rpx; position: relative; display: flex; flex-direction: column;
+}
+.btn-close-abs { position: absolute; top: 10rpx; right: 10rpx; padding: 10rpx; color: #bbb; font-size: 32rpx; z-index: 10; }
+.card-top-row { margin-bottom: 16rpx; display: flex; justify-content: flex-start; }
+.ai-pill-top { background: #f0f7ff; color: #2b85e4; font-size: 22rpx; padding: 6rpx 20rpx; border-radius: 20rpx; font-weight: bold; border: 1rpx solid rgba(43,133,228,0.1); display: inline-flex; align-items: center; }
+.ai-icon { margin-right: 6rpx; }
+.row-header { width: 100%; display: flex; align-items: center; margin-bottom: 8rpx; }
+.title-wrapper { display: flex; align-items: center; gap: 12rpx; }
+.card-name { font-size: 30rpx; font-weight: 600; color: #333; max-width: 420rpx; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.card-code { font-size: 22rpx; color: #999; flex-shrink: 0; }
+.row-sub { width: 100%; font-size: 22rpx; color: #aaa; margin-bottom: 8rpx; }
+.card-line { width: 100%; height: 1rpx; background: #f7f7f7; margin: 8rpx 0; }
+
+/* 🔥 核心修复：三行式布局样式 */
+.data-content { 
+  width: 100%; 
+  display: flex; 
+  flex-direction: column; 
+  margin-top: 8rpx; 
+}
+
+/* 1. 时间行 (靠右) */
+.time-row { 
+  display: flex; 
+  justify-content: flex-end; 
+  margin-bottom: 2rpx; 
+}
+.time-text { 
+  font-size: 20rpx; 
+  color: #ccc; 
+}
+
+/* 2. 标题行 (两端对齐) */
+.labels-row { 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  margin-bottom: 2rpx; 
+}
+.label-text { 
+  font-size: 22rpx; 
+  color: #999; 
+}
+
+/* 3. 数值行 (两端对齐 + 基线对齐) */
+.values-row { 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: baseline; /* 👈 关键：基线对齐，保证数字底部绝对平齐 */
+}
+.value-text { 
+  font-size: 52rpx; 
+  font-weight: bold; 
+  font-family: Arial, sans-serif; 
+  line-height: 1; 
+}
+
+.main-color { color: #333; }
+.red { color: #f54343 !important; }
+.green { color: #00b578 !important; }
+
+/* 底部及弹窗样式保持不变 */
+.compliance-footer { margin-top: 40rpx; padding: 30rpx 20rpx; border-top: 1rpx dashed #eee; text-align: left; }
+.disclaimer-title { font-size: 24rpx; color: #999; font-weight: bold; margin-bottom: 12rpx; }
+.disclaimer-text { font-size: 20rpx; color: #bbb; line-height: 1.6; margin-bottom: 4rpx; }
+.modal-mask { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); z-index: 999; display: flex; align-items: center; justify-content: center; }
+.modal-content { background: #fff; width: 640rpx; border-radius: 24rpx; padding: 40rpx; box-sizing: border-box; }
+.modal-title { font-size: 34rpx; font-weight: bold; text-align: center; margin-bottom: 40rpx; }
+.form-row { margin-bottom: 24rpx; }
+.form-label { font-size: 26rpx; color: #666; margin-bottom: 10rpx; }
+.modal-input { height: 88rpx; background: #f5f7fa; border-radius: 12rpx; padding: 0 24rpx; font-size: 30rpx; width: 100%; box-sizing: border-box; }
+.btn-check { width: 140rpx; height: 88rpx; background: rgba(43,133,228,0.1); color: #2b85e4; font-size: 28rpx; display: flex; align-items: center; justify-content: center; border-radius: 12rpx; flex-shrink: 0; }
+.modal-btns { display: flex; gap: 24rpx; margin-top: 40rpx; }
+.btn-cancel, .btn-confirm { flex: 1; height: 88rpx; border-radius: 44rpx; font-size: 30rpx; display: flex; align-items: center; justify-content: center; }
+.btn-cancel { background: #f5f7fa; color: #666; }
+.btn-confirm { background: #2b85e4; color: #fff; }
+.custom-tab-bar { position: fixed; bottom: 0; left: 0; right: 0; height: 110rpx; background: #fff; display: flex; border-top: 1rpx solid #eee; padding-bottom: env(safe-area-inset-bottom); }
+.tab-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.tab-icon { font-size: 40rpx; filter: grayscale(1); }
+.tab-item.active .tab-icon { filter: grayscale(0); }
+.tab-item.active .tab-text { color: #2b85e4; font-weight: bold; }
+.tab-text { font-size: 22rpx; color: #999; }
+
+/* ⚠️ 这里必须保留“我的”页面的样式 */
+.mine-container { padding: 30rpx; min-height: 100vh; background-color: #f6f7f8; box-sizing: border-box; }
+.user-card { background: #fff; border-radius: 24rpx; padding: 40rpx; display: flex; align-items: center; margin-bottom: 30rpx; box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.03); }
+.avatar-box { width: 120rpx; height: 120rpx; border-radius: 60rpx; overflow: hidden; margin-right: 30rpx; border: 4rpx solid #f0f7ff; flex-shrink: 0; }
+.avatar { width: 100%; height: 100%; border-radius: 50%; }
+.user-info { display: flex; flex-direction: column; justify-content: center; }
+.nickname { font-size: 36rpx; font-weight: bold; color: #333; margin-bottom: 12rpx; }
+.user-desc { font-size: 24rpx; color: #999; background: #f7f8fa; padding: 4rpx 16rpx; border-radius: 20rpx; display: inline-block; }
+.menu-list { background: #fff; border-radius: 24rpx; padding: 0 30rpx; box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.03); margin-bottom: 40rpx; }
+.menu-item { height: 110rpx; display: flex; justify-content: space-between; align-items: center; border-bottom: 1rpx solid #f7f7f7; }
+.menu-item:last-child { border-bottom: none; }
+.left { display: flex; align-items: center; }
+.icon { font-size: 38rpx; margin-right: 24rpx; }
+.title { font-size: 30rpx; color: #333; font-weight: 500; }
+.arrow { color: #ddd; font-size: 28rpx; font-family: monospace; }
+.desc { color: #bbb; font-size: 26rpx; }
+.footer-tip { text-align: center; margin-top: 60rpx; color: #ddd; font-size: 22rpx; letter-spacing: 2rpx; }
+
+/* ... 您原有的代码 ... */
+
+/* 🔥 核心修复：给底部增加足够的空间，防止被导航栏遮挡 */
+.tab-bar-placeholder {
+  width: 100%;
+  /* 导航栏高度约110rpx + 安全距离，设置 160rpx 足够把文字顶出来 */
+  height: 160rpx; 
+  background: transparent;
+  padding-bottom: env(safe-area-inset-bottom);
+  flex-shrink: 0; 
+}

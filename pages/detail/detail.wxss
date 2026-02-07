@@ -1,0 +1,145 @@
+page {
+  background-color: #f7f8fa;
+  box-sizing: border-box;
+}
+
+.container {
+  padding: 30rpx; /* 统一的外边距 */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* 1. 产品卡片样式 */
+.product-card {
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 40rpx 30rpx;
+  margin-bottom: 30rpx;
+  width: 100%;
+  box-sizing: border-box;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.03);
+}
+
+.header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 40rpx;
+}
+
+.product-name {
+  font-size: 34rpx;
+  font-weight: bold;
+  color: #333;
+  display: block;
+  margin-bottom: 8rpx;
+}
+
+.product-code {
+  font-size: 24rpx;
+  color: #666;
+  background: #f2f2f2;
+  padding: 4rpx 12rpx;
+  border-radius: 6rpx;
+}
+
+.ai-status {
+  font-size: 22rpx;
+  color: #3a8cff;
+  background: #eef5ff;
+  padding: 6rpx 16rpx;
+  border-radius: 20rpx;
+  font-weight: bold;
+}
+
+.data-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.data-item {
+  width: 48%; /* 左右各占一半 */
+  display: flex;
+  flex-direction: column;
+}
+
+.align-right {
+  align-items: flex-end;
+}
+
+.mt {
+  margin-top: 30rpx;
+}
+
+.label {
+  font-size: 24rpx;
+  color: #999;
+  margin-bottom: 8rpx;
+}
+
+.value {
+  font-size: 40rpx;
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+}
+
+/* 2. 图表卡片样式 (修复对齐的关键) */
+.chart-section {
+  background: #fff;       /* 白底 */
+  border-radius: 24rpx;   /* 圆角 */
+  padding: 30rpx;         /* 内边距，与上方卡片一致 */
+  width: 100%;
+  box-sizing: border-box;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.03);
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.icon-title {
+  display: flex;
+  align-items: center;
+}
+
+.color-block {
+  width: 8rpx;
+  height: 28rpx;
+  background: linear-gradient(to bottom, #3a8cff, #ff525d);
+  margin-right: 12rpx;
+  border-radius: 4rpx;
+}
+
+.icon-title text {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.sub-title {
+  font-size: 22rpx;
+  color: #bbb;
+}
+
+/* 图表容器 */
+.chart-wrapper {
+  width: 100%;
+  height: 550rpx; /* 高度适中 */
+  position: relative;
+}
+
+ec-canvas {
+  width: 100%;
+  height: 100%;
+}
+
+/* 颜色工具类 */
+.red { color: #f54343 !important; }
+.green { color: #00b578 !important; }
+.gray { color: #ccc !important; }
+.black { color: #333; }
+.risk-notice { margin-top: 30rpx; font-size: 22rpx; color: #ccc; text-align: center; }

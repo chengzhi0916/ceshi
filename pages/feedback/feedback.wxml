@@ -1,0 +1,48 @@
+<view class="container">
+  <view class="header-bg"></view>
+  
+  <view class="content-wrapper">
+    
+    <view class="header-text">
+      <view class="h1">聆听您的声音</view>
+      <view class="h2">您的每一条建议，都是我们改进的方向</view>
+    </view>
+
+    <view class="form-card">
+      
+      <view class="form-group">
+        <view class="section-title">您想反馈的是？</view>
+        <view class="type-row">
+          <view class="type-btn {{type===0?'active':''}}" bindtap="switchType" data-idx="0">
+            <text class="icon">✨</text> 功能建议
+          </view>
+          <view class="type-btn {{type===1?'active':''}}" bindtap="switchType" data-idx="1">
+            <text class="icon">🐞</text> 故障报修
+          </view>
+          <view class="type-btn {{type===2?'active':''}}" bindtap="switchType" data-idx="2">
+            <text class="icon">💬</text> 其他
+          </view>
+        </view>
+      </view>
+
+      <view class="form-group">
+        <view class="section-title">详细描述</view>
+        <view class="textarea-wrapper">
+          <textarea 
+            value="{{content}}" 
+            bindinput="onInputContent"
+            placeholder="请描述您的想法，或者遇到的问题..." 
+            placeholder-class="ph" 
+            maxlength="500"
+            disable-default-padding="{{true}}"
+          ></textarea>
+          <view class="count">{{content.length}}/500</view>
+        </view>
+      </view>
+
+      <button class="submit-btn" bindtap="onSubmit">提交反馈</button>
+    </view>
+
+    <view class="footer-tip">感谢您的宝贵建议 ❤️</view>
+  </view>
+</view>

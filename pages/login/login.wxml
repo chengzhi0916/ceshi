@@ -1,0 +1,55 @@
+<view class="login-page">
+  <!-- 顶部装饰氛围 -->
+  <view class="header-banner"></view>
+
+  <view class="main-card">
+    <!-- 情况一：已登录 -->
+    <block wx:if="{{hasLogin}}">
+      <view class="profile-section">
+        <view class="avatar-wrap">
+          <image class="user-avatar" src="{{userInfo.avatarUrl}}"></image>
+          <!-- 在线呼吸灯绿点 -->
+          <view class="online-indicator"></view>
+        </view>
+        <view class="user-info">
+          <text class="user-nickname">{{userInfo.nickName}}</text>
+          <view class="status-tag">
+            <text class="dot"></text> 当前在线
+          </view>
+        </view>
+      </view>
+
+      <view class="action-box">
+        <button class="action-btn logout-btn" bindtap="handleLogout">
+          退出当前账号
+        </button>
+      </view>
+    </block>
+
+    <!-- 情况二：未登录 -->
+    <block wx:else>
+      <view class="guide-section">
+        <view class="logo-box">
+          <image class="logo-placeholder" src="/images/user-default.png" mode="aspectFit"></image>
+        </view>
+        <text class="guide-title">{{title}}</text>
+        <text class="guide-desc">{{desc}}</text>
+      </view>
+      
+      <view class="action-box">
+        <!-- 突出显示的授权按钮 -->
+        <button class="prominent-btn" bindtap="getUserProfile">
+          立即授权登录
+        </button>
+      </view>
+    </block>
+
+    <!-- 底部公共操作区 -->
+    <view class="footer-section">
+      <view class="divider"></view>
+      <button class="exit-btn" bindtap="handleExitApp" plain="true">
+        退出并关闭小程序
+      </button>
+    </view>
+  </view>
+</view>

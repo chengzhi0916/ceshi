@@ -1,0 +1,145 @@
+<view class="page-container">
+  
+  <view class="tab-content" wx:if="{{currentTab === 0}}">
+    <view class="container">
+      <view class="header-action-area">
+        <view class="top-menu-group">
+          <view class="menu-btn blue-theme" bindtap="onFeedback" style="width: 100%;">
+            <text>💡 功能建议</text>
+          </view>
+        </view>
+
+        <button class="main-add-btn" bindtap="onOpenModal">
+          <text class="plus-icon">+</text> 新增监测项
+        </button>
+        
+        <view class="data-tip-row">
+          <text>数据校准: {{lastUpdateTime || '--:--'}}</text>
+          <text class="divider">|</text>
+          <text>{{countdown}}s 后动态同步</text>
+        </view>
+      </view>
+
+      <view class="list-header">
+        <view class="my-title">📑 数据列表 <text style="color:#4f8aff;margin-left:8rpx;font-size:26rpx">{{myFunds.length}}/5</text></view>
+      </view>
+
+      <block wx:for="{{myFunds}}" wx:key="code">
+        <view class="finance-card">
+          <view class="btn-close-abs" catchtap="onRemoveFund" data-index="{{index}}">×</view>
+          
+          <view class="card-top-row">
+            <view class="ai-pill-top" bindtap="onOpenDetail" data-code="{{item.code}}">
+              <text class="ai-icon">📊</text> 趋势分析 >
+            </view>
+          </view>
+
+          <view class="row-header">
+            <view class="title-wrapper">
+              <text class="card-name">{{item.name}}</text>
+              <text class="card-code">{{item.code}}</text>
+            </view>
+          </view>
+
+          <view class="row-sub">
+            基准参考: {{item.lastNav}} | 动态监测: {{item.estNav}}
+          </view>
+
+          <view class="card-line"></view>
+
+          <view class="data-content">
+            <view class="time-row">
+              <text class="time-text">🕒 {{item.time}}</text>
+            </view>
+            <view class="labels-row">
+              <text class="label-text">{{item.hasCost ? '综合统计(分)' : '计算结果'}}</text>
+              <text class="label-text">变动比例</text>
+            </view>
+            <view class="values-row">
+              <text class="value-text main-color">{{item.totalValue || '0.00'}}</text>
+              <text class="value-text {{item.isPositive ? 'red' : 'green'}}">{{item.changeRate > 0 ? '+' : ''}}{{item.changeRate}}%</text>
+            </view>
+          </view>
+        </view>
+      </block>
+
+      <view wx:if="{{myFunds.length === 0}}" class="empty-state">暂无记录，请点击上方按钮添加</view>
+      
+      <view class="compliance-footer">
+        <view class="disclaimer-title">—— 声明与须知 ——</view>
+        <view class="disclaimer-text">1. 本工具仅用于个人数据的模拟测算与记录管理。</view>
+        <view class="disclaimer-text">2. 所有基础数据来源于互联网公开采集，可能存在延迟或偏差，结果仅供参考。</view>
+        <view class="disclaimer-text">3. 本工具不具备金融属性，不提供任何交易、投资建议或资产管理服务。</view>
+      </view>
+      <view style="height: 120rpx;"></view>
+    </view>
+  </view>
+  
+  <view class="tab-content" wx:if="{{currentTab === 1}}">
+    <view class="mine-container">
+      <view class="user-card">
+        <view class="avatar-box">
+          <view class="avatar" style="background:#ddd; display:flex; justify-content:center; align-items:center; font-size:40rpx;">👤</view>
+        </view>
+        <view class="user-info">
+          <view class="nickname">本地用户</view>
+          <view class="user-desc">欢迎使用估值小助手</view>
+        </view>
+      </view>
+
+      <view class="menu-list">
+        <view class="menu-item">
+          <view class="left"><text class="icon">⚙️</text><text class="title">记录管理</text></view>
+          <text class="arrow">></text>
+        </view>
+        <view class="menu-item" bindtap="onFeedback">
+          <view class="left"><text class="icon">📧</text><text class="title">功能建议</text></view>
+          <text class="arrow">></text>
+        </view>
+        <view class="menu-item">
+          <view class="left"><text class="icon">🗑️</text><text class="title">清除缓存</text></view>
+          <text class="arrow">></text>
+        </view>
+        <view class="menu-item" style="border:none">
+          <view class="left"><text class="icon">ℹ️</text><text class="title">当前版本</text></view>
+          <text class="desc">v2.0.5</text>
+        </view>
+      </view>
+      
+      <view class="footer-tip">—— 让记录更简单 ——</view>
+    </view>
+  </view>
+
+  <view class="custom-tab-bar" style="position:fixed; bottom:0; left:0; right:0; height:100rpx; background:#fff; display:flex; border-top:1rpx solid #eee; padding-bottom:env(safe-area-inset-bottom);">
+    <view class="tab-item {{currentTab === 0 ? 'active' : ''}}" bindtap="switchTab" data-idx="0" style="flex:1; display:flex; flex-direction:column; justify-content:center; align-items:center; color:{{currentTab===0?'#4f8aff':'#999'}}">
+      <text class="tab-icon" style="font-size:40rpx;">🏠</text>
+      <text class="tab-text" style="font-size:22rpx; margin-top:4rpx;">看板</text>
+    </view>
+    <view class="tab-item {{currentTab === 1 ? 'active' : ''}}" bindtap="switchTab" data-idx="1" style="flex:1; display:flex; flex-direction:column; justify-content:center; align-items:center; color:{{currentTab===1?'#4f8aff':'#999'}}">
+      <text class="tab-icon" style="font-size:40rpx;">👤</text>
+      <text class="tab-text" style="font-size:22rpx; margin-top:4rpx;">我的</text>
+    </view>
+  </view>
+
+  <view class="modal-mask" wx:if="{{showModal}}"> 
+    <view class="modal-content"> 
+      <view class="modal-title">新增监测项</view> 
+      <view class="form-row"> 
+        <view class="form-label">项目代码</view> 
+        <view class="input-wrapper flex-row"> 
+          <input class="modal-input flex-1" type="number" maxlength="6" value="{{form.code}}" bindinput="onModalInputCode" placeholder="输入6位编码"/> 
+          <view class="btn-check" bindtap="onCheckProduct">检索</view> 
+        </view> 
+      </view> 
+      <view class="form-row"><view class="form-label">项目名称</view><input class="modal-input full-width disabled" disabled value="{{form.name}}"/></view> 
+      <view class="form-row"><view class="form-label">统计数值(总量)</view><input class="modal-input full-width" type="digit" value="{{form.amount}}" bindinput="onInputAmount" placeholder="可选填"/></view> 
+      <view class="form-row"><view class="form-label">录入基数(单价)</view><input class="modal-input full-width" type="digit" value="{{form.cost}}" bindinput="onInputCost" placeholder="自动填充/手动输入"/></view> 
+      <view class="form-row"><view class="form-label">计算系数(数量)</view><input class="modal-input full-width disabled" disabled value="{{form.shares}}"/></view> 
+      <view class="modal-btns"> 
+        <button class="btn-cancel" bindtap="onCloseModal">取消</button> 
+        <button class="btn-confirm" bindtap="onConfirmAdd">确认添加</button> 
+      </view> 
+    </view> 
+  </view>
+
+</view>

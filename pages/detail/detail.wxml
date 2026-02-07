@@ -1,0 +1,57 @@
+<view class="container">
+  
+  <view class="product-card">
+    <view class="header-row">
+      <view class="title-box">
+        <text class="product-name">{{fundName}}</text>
+        <text class="product-code">{{fundCode}}</text>
+      </view>
+      <view class="ai-status">实时计算中</view>
+    </view>
+
+    <view class="data-grid">
+      <view class="data-item">
+        <text class="label">实时监测值</text>
+        <text class="value black">{{currentValue}}</text>
+      </view>
+      
+      <view class="data-item align-right">
+        <text class="label">变动比例</text>
+        <text class="value {{isPositive ? 'red' : 'green'}}">{{rate >= 0 ? '+' : ''}}{{rate}}%</text>
+      </view>
+      
+      <view class="data-item mt">
+        <text class="label">计算系数</text>
+        <text class="value gray">{{myShares}}</text>
+      </view>
+      
+      <view class="data-item align-right mt">
+        <text class="label">统计差值</text>
+        <text class="value {{totalDiff >= 0 ? 'red' : 'green'}}">{{totalDiff > 0 ? '+' : ''}}{{totalDiff}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="chart-section">
+    <view class="section-header">
+      <view class="icon-title">
+        <view class="color-block"></view>
+        <text>区间趋势模拟</text>
+      </view>
+      <text class="sub-title">09:30 - 15:00</text>
+    </view>
+
+    <view class="chart-wrapper" bindtouchend="onChartTouchEnd">
+      <ec-canvas id="mychart-dom-line" canvas-id="mychart-line" ec="{{ ec }}"></ec-canvas>
+    </view>
+  </view>
+  
+  <view class="risk-notice">
+    <view class="notice-title">—— 数据说明 ——</view>
+    <view class="notice-content">
+      <view>1. 监测数值基于互联网公开信息进行实时模拟测算，可能存在延迟或计算偏差，结果仅供参考。</view>
+      <view>2. 历史变动趋势仅用于个人数据记录与回顾，不代表未来的数值走向。</view>
+      <view>3. 本工具仅为通用计算辅助程序，不具备金融属性，不提供任何交易决策依据。</view>
+    </view>
+  </view>
+</view>

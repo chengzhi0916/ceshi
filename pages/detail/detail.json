@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "AI智能分析",
+  "navigationBarBackgroundColor": "#ffffff",
+  "navigationBarTextStyle": "black",
+  "backgroundColor": "#f6f7f8",
+  "usingComponents": {
+    "ec-canvas": "../../ec-canvas/ec-canvas"
+  }
+}
