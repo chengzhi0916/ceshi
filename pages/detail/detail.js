@@ -15,29 +15,119 @@ Page({
     myCost: 0,
     totalDiff: '--',
     totalAmt: '--',
-    isPositive: false,
+       this.startRealTimeUpdate(code);
+       this.loadHistoryData(code);
     
     ec: {
       lazyLoad: true 
     }
   },
 
-  chart: null,
+         this.startRealTimeUpdate(this.data.fundCode);
   timer: null,
   
   // 核心数据
-  xData: [], 
+      loadHistoryData(code) {
+        wx.request({
+          url: `https://api.7sxbc.icu/api/history?code=${code}`,
+          success: (res) => {
+            if (res.data.code === 200 && res.data.data && res.data.data.length > 0) {
+              const historyData = res.data.data;
+              historyData.forEach(item => {
+                this.xData.push(item.time_str);
+                const lastNav = parseFloat(item.last_nav) || 1.0;
+                const estNav = parseFloat(item.est_nav);
+                const ratio = ((estNav - lastNav) / lastNav * 100).toFixed(2);
+                this.yData.push(parseFloat(ratio));
+              });
+              if (historyData.length > 0) {
+                this.isChartActive = true;
+                this.updateChart();
+              }
+            }
+          }
+        });
+      },
   yData: [], 
+      startRealTimeUpdate(code) {
+        if (this.realTimeTimer) clearInterval(this.realTimeTimer);
+        this.realTimeTimer = setInterval(() => {
+          this.fetchRealTimeData(code);
+        }, 3000);
+      },
   isChartActive: false, // 🔥 新增标记：图表是否已经开始“跳动”
+      fetchRealTimeData(code) {
+        wx.request({
+          url: `https://api.7sxbc.icu/api/valuation?code=${code}&t=${Date.now()}`,
+          success: (res) => {
+            if (res.data.code === 200 && res.data.data) {
+              const data = res.data.data;
+              this.setData({ fundName: data.name || this.data.fundName });
+          
+              if (data.update_time) {
+                const timeStr = data.update_time.split(' ')[1].substring(0, 5);
+                const lastNav = parseFloat(data.last_nav);
+                const estNavValue = parseFloat(data.est_nav);
+                const changeRate = ((estNavValue - lastNav) / lastNav * 100).toFixed(2);
+            
+                this.addChartPoint(timeStr, parseFloat(changeRate));
+                this.calcProfit(estNavValue);
+                this.setData({ rate: changeRate });
+              }
+            }
+          }
+        });
+      },
 
-  onLoad: function (options) {
-    const code = options.code;
-    this.setData({ fundCode: code });
+      addChartPoint(time, value) {
+        if (!this.chart) return;
     
+        const lastTime = this.xData.length > 0 ? this.xData[this.xData.length - 1] : '';
+        if (time === lastTime) return;
+  onLoad: function (options) {
+        this.xData.push(time);
+        this.yData.push(value);
+    const code = options.code;
+        if (this.xData.length > 30) {
+          this.xData.shift();
+          this.yData.shift();
+        }
+    this.setData({ fundCode: code });
+        if (!this.isChartActive) {
+          this.isChartActive = true;
+        }
+    
+        this.updateChart();
+      },
     wx.setNavigationBarTitle({ title: '数据分析' });
+      updateChart() {
+        if (!this.chart || this.yData.length === 0) return;
 
+        const minVal = Math.min(...this.yData);
+        const maxVal = Math.max(...this.yData);
+        const padding = (Math.abs(maxVal - minVal)) * 0.3;
+        const safePadding = padding === 0 ? Math.abs(maxVal) * 0.1 : padding;
     this.initChartComponent();
+        const yAxisMin = (minVal - safePadding).toFixed(4);
+        const yAxisMax = (maxVal + safePadding).toFixed(4);
     this.syncDataFromIndex(code);
+        this.chart.setOption({
+          xAxis: {
+            data: this.xData,
+            axisLabel: { fontSize: 10 }
+          },
+          yAxis: {
+            type: 'value',
+            min: parseFloat(yAxisMin),
+            max: parseFloat(yAxisMax),
+            splitLine: { lineStyle: { type: 'dashed' } },
+            axisLabel: { formatter: (v) => v.toFixed(2) + '%' }
+          },
+          series: [{
+            data: this.yData
+          }]
+        });
+      },
     this.fetchData(code);
     this.startTimer(code);
   },

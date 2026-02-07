@@ -49,8 +49,8 @@ Page({
   },
 
   async fetchFundValuation(fundCode) {
-    try {
-      const response = await wx.request({
+    return new Promise((resolve) => {
+      wx.request({
         url: `${API_BASE}?code=${fundCode}&t=${Date.now()}`,
         success: (res) => {
           if (res.data.code === 200) {
@@ -58,22 +58,39 @@ Page({
             const lastNav = parseFloat(fundData.last_nav);
             const estNav = parseFloat(fundData.est_nav);
             const changeRate = ((estNav - lastNav) / lastNav * 100).toFixed(2);
-
             const isPositive = changeRate >= 0;
+
+            const myFundsData = this.data.myFunds;
+            const index = myFundsData.findIndex(f => f.code === fundCode);
             
-            this.setData({
-              'myFunds[0].estNav': fundData.est_nav,
-              'myFunds[0].changeRate': changeRate,
-              'myFunds[0].isPositive': isPositive,
-              'myFunds[0].time': fundData.update_time
-            });
+            if (index >= 0) {
+              const fund = myFundsData[index];
+              let totalValue = '0.00';
+              
+              if (fund.shares && fund.shares > 0) {
+                totalValue = (parseFloat(fund.shares) * estNav).toFixed(2);
+              } else if (fund.amount && fund.amount > 0) {
+                totalValue = fund.amount;
+              }
+              
+              const updateObj = {};
+              updateObj[`myFunds[${index}].estNav`] = fundData.est_nav;
+              updateObj[`myFunds[${index}].lastNav`] = fundData.last_nav;
+              updateObj[`myFunds[${index}].changeRate`] = changeRate;
+              updateObj[`myFunds[${index}].isPositive`] = isPositive;
+              updateObj[`myFunds[${index}].time`] = fundData.update_time;
+              updateObj[`myFunds[${index}].name`] = fundData.name;
+              updateObj[`myFunds[${index}].totalValue`] = totalValue;
+              this.setData(updateObj);
+            }
           }
+          resolve();
         },
-        fail: (error) => {
+        fail: () => {
+          resolve();
         }
       });
-    } catch (error) {
-    }
+    });
   },
 
   refreshAll() {
@@ -84,11 +101,8 @@ Page({
     const now = new Date();
     const timeStr = `${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}`;
 
-    const promises = funds.map((fund, index) => {
-      return new Promise((resolve) => {
-        this.fetchFundValuation(fund.code);
-        resolve();
-      });
+    const promises = funds.map((fund) => {
+      return this.fetchFundValuation(fund.code);
     });
 
     Promise.all(promises).then(() => {
@@ -194,9 +208,28 @@ Page({
     const { code, name, cost, shares, amount } = this.data.form;
     if (!name) return wx.showToast({ title: '请先查询', icon: 'none' });
     if (this.data.myFunds.length >= 5) return wx.showToast({ title: '最多5个', icon: 'none' });
-    let initialDisplay = amount || '--';
-    if (!amount && shares && cost) initialDisplay = (parseFloat(shares) * parseFloat(cost)).toFixed(2);
-    const newFund = { code, name, costPrice: cost || 0, shares: shares || 0, hasCost: !!cost, estNav: initialDisplay, userRate: 0, time: '获取中...', lastNav: '--', lastDate: '--' };
+    
+    let totalValue = amount || '--';
+    if (!amount && shares && cost) {
+      totalValue = (parseFloat(shares) * parseFloat(cost)).toFixed(2);
+    }
+    
+    const newFund = { 
+      code, 
+      name, 
+      costPrice: cost || 0, 
+      shares: shares || 0, 
+      amount: amount || 0,
+      hasCost: !!cost, 
+      estNav: '--', 
+      lastNav: '--',
+      changeRate: '--',
+      isPositive: false,
+      totalValue: totalValue, 
+      time: '获取中...',
+      lastDate: '--' 
+    };
+    
     const newList = [newFund, ...this.data.myFunds];
     this.setData({ myFunds: newList, showModal: false });
     wx.setStorageSync('my_funds', newList);
