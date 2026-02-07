@@ -1,8 +1,8 @@
 import * as echarts from '../../ec-canvas/echarts';
 
 const API_BASE = 'https://api.7sxbc.icu/api'; 
-const REFRESH_INTERVAL = 3000; // 3秒刷新一次
-const MAX_POINTS = 30; // 屏幕上最多保留30个点
+const REFRESH_INTERVAL = 3000;
+const MAX_POINTS = 30;
 
 Page({
   data: {
@@ -34,18 +34,11 @@ Page({
     const code = options.code;
     this.setData({ fundCode: code });
     
-    wx.setNavigationBarTitle({ title: '趋势详情分析' });
+    wx.setNavigationBarTitle({ title: '数据分析' });
 
-    // 1. 初始化图表 (这里会画出你要的“中心轴0”待机界面)
     this.initChartComponent();
-
-    // 2. 同步基础数据
     this.syncDataFromIndex(code);
-    
-    // 3. 立即请求一次
     this.fetchData(code);
-
-    // 4. 开启轮询
     this.startTimer(code);
   },
 
@@ -57,7 +50,6 @@ Page({
     }
   },
 
-  // --- 数据请求 ---
   fetchData(code) {
     wx.request({
       url: `${API_BASE}/valuation`,
@@ -153,13 +145,11 @@ Page({
     }
   },
 
-  // --- 初始化图表 (待机界面) ---
   initChartComponent() {
     this.selectComponent('#mychart-dom-line').init((canvas, width, height, dpr) => {
       const chart = echarts.init(canvas, null, { width, height, devicePixelRatio: dpr });
       this.chart = chart;
 
-      // 🔥 初始状态：完全模拟“图二”的空闲样子
       const initOption = {
         grid: { left: '12%', right: '5%', bottom: '10%', top: '10%', containLabel: false },
         tooltip: { 
@@ -172,7 +162,7 @@ Page({
         xAxis: {
           type: 'category',
           boundaryGap: false,
-          data: [], // 🔥 重点：这里是空的，所以刚进去下面没有时间！
+          data: [],
           axisLine: { lineStyle: { color: '#eee' } },
           axisLabel: { color: '#999', fontSize: 10 },
           axisTick: { show: false }
@@ -180,7 +170,6 @@ Page({
         yAxis: {
           type: 'value',
           scale: true,
-          // 🔥 重点：初始状态强行固定为 -1 到 1，保证中心有个 0 轴
           min: -1, 
           max: 1,  
           splitLine: { lineStyle: { type: 'dashed', color: '#f5f5f5' } },

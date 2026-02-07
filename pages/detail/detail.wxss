@@ -4,7 +4,7 @@ page {
 }
 
 .container {
-  padding: 30rpx; /* 统一的外边距 */
+  padding: 30rpx;
   width: 100%;
   box-sizing: border-box;
 }

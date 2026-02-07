@@ -17,7 +17,7 @@
             <text class="icon">✨</text> 功能建议
           </view>
           <view class="type-btn {{type===1?'active':''}}" bindtap="switchType" data-idx="1">
-            <text class="icon">🐞</text> 故障报修
+            <text class=\"icon\">🐞</text> 问题反馈
           </view>
           <view class="type-btn {{type===2?'active':''}}" bindtap="switchType" data-idx="2">
             <text class="icon">💬</text> 其他

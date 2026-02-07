@@ -48,7 +48,6 @@ Page({
     }
   },
 
-  // 获取基金实时估值并更新UI
   async fetchFundValuation(fundCode) {
     try {
       const response = await wx.request({
@@ -56,28 +55,24 @@ Page({
         success: (res) => {
           if (res.data.code === 200) {
             const fundData = res.data.data;
-            const lastNav = parseFloat(fundData.last_nav);  // 昨日净值
-            const estNav = parseFloat(fundData.est_nav);  // 实时估值
-            const changeRate = ((estNav - lastNav) / lastNav * 100).toFixed(2);  // 计算涨跌幅
+            const lastNav = parseFloat(fundData.last_nav);
+            const estNav = parseFloat(fundData.est_nav);
+            const changeRate = ((estNav - lastNav) / lastNav * 100).toFixed(2);
 
-            // 判断涨跌幅的正负，设置样式
-            const isPositive = changeRate >= 0; // 判断涨幅是否为正
+            const isPositive = changeRate >= 0;
             
-            // 更新页面显示实时估值和涨跌幅
             this.setData({
-              'myFunds[0].estNav': fundData.est_nav,  // 更新基金估值
-              'myFunds[0].changeRate': changeRate,  // 更新涨跌幅
-              'myFunds[0].isPositive': isPositive,  // 设置是否为正涨幅
-              'myFunds[0].time': fundData.update_time  // 更新时间
+              'myFunds[0].estNav': fundData.est_nav,
+              'myFunds[0].changeRate': changeRate,
+              'myFunds[0].isPositive': isPositive,
+              'myFunds[0].time': fundData.update_time
             });
           }
         },
         fail: (error) => {
-          console.error('请求失败:', error);
         }
       });
     } catch (error) {
-      console.error('请求失败:', error.message);
     }
   },
 
@@ -91,7 +86,7 @@ Page({
 
     const promises = funds.map((fund, index) => {
       return new Promise((resolve) => {
-        this.fetchFundValuation(fund.code);  // 直接调用获取实时估值的函数
+        this.fetchFundValuation(fund.code);
         resolve();
       });
     });

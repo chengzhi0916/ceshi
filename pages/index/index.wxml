@@ -14,9 +14,9 @@
         </button>
         
         <view class="data-tip-row">
-          <text>数据校准: {{lastUpdateTime || '--:--'}}</text>
+          <text>更新时间: {{lastUpdateTime || '--:--'}}</text>
           <text class="divider">|</text>
-          <text>{{countdown}}s 后动态同步</text>
+          <text>{{countdown}}s 后更新</text>
         </view>
       </view>
 
@@ -42,7 +42,7 @@
           </view>
 
           <view class="row-sub">
-            基准参考: {{item.lastNav}} | 动态监测: {{item.estNav}}
+            参考值: {{item.lastNav}} | 当前值: {{item.estNav}}
           </view>
 
           <view class="card-line"></view>
@@ -52,8 +52,8 @@
               <text class="time-text">🕒 {{item.time}}</text>
             </view>
             <view class="labels-row">
-              <text class="label-text">{{item.hasCost ? '综合统计(分)' : '计算结果'}}</text>
-              <text class="label-text">变动比例</text>
+              <text class="label-text">{{item.hasCost ? '总金额' : '数据值'}}</text>
+              <text class="label-text">变化比率</text>
             </view>
             <view class="values-row">
               <text class="value-text main-color">{{item.totalValue || '0.00'}}</text>
@@ -67,9 +67,9 @@
       
       <view class="compliance-footer">
         <view class="disclaimer-title">—— 声明与须知 ——</view>
-        <view class="disclaimer-text">1. 本工具仅用于个人数据的模拟测算与记录管理。</view>
+        <view class="disclaimer-text">1. 本工具仅用于个人数据的记录与管理。</view>
         <view class="disclaimer-text">2. 所有基础数据来源于互联网公开采集，可能存在延迟或偏差，结果仅供参考。</view>
-        <view class="disclaimer-text">3. 本工具不具备金融属性，不提供任何交易、投资建议或资产管理服务。</view>
+        <view class="disclaimer-text">3. 本工具为通用计算程序，结果仅供参考。</view>
       </view>
       <view style="height: 120rpx;"></view>
     </view>

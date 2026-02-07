@@ -5,14 +5,13 @@ Page({
     userInfo: null,
     hasLogin: false,
     title: '账户中心',
-    desc: '登录后可同步您的基金资产数据'
+    desc: '登录后可同步您的个人数据'
   },
 
   onLoad() {
     wx.setNavigationBarTitle({ title: '个人中心' });
   },
 
-  // 页面每次显示时同步状态
   onShow() {
     this.checkLoginStatus();
   },
@@ -35,17 +34,14 @@ Page({
     }
   },
 
-  // 授权登录：获取用户信息
   getUserProfile() {
     wx.getUserProfile({
-      desc: '用于完善您的个人资产记录',
+      desc: '用于完善您的个人记录',
       success: (res) => {
         const userInfo = res.userInfo;
-        // 存入缓存
         wx.setStorageSync('userInfo', userInfo);
         wx.setStorageSync('isLogin', true);
         
-        // 更新页面和全局变量
         this.setData({
           userInfo: userInfo,
           hasLogin: true
@@ -61,7 +57,6 @@ Page({
     });
   },
 
-  // 退出登录
   handleLogout() {
     wx.showModal({
       title: '提示',
