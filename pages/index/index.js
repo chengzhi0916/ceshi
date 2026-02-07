@@ -217,9 +217,18 @@ Page({
       cancelText: '取消',
       success: (res) => {
         if (res.confirm) {
+          // 1. 先清除所有本地存储数据
           wx.clearStorageSync();
-          this.setData({ isLogin: false, userInfo: null, currentTab: 0 });
-          wx.showToast({ title: '已退出登录', icon: 'success' });
+          // 2. 重置页面数据
+          this.setData({ 
+            isLogin: false, 
+            userInfo: null, 
+            myFunds: [],
+            currentTab: 0 
+          });
+          // 3. 显示成功提示
+          wx.showToast({ title: '已退出登录', icon: 'success', duration: 1500 });
+          // 4. 延迟后跳转到登录页面
           setTimeout(() => {
             wx.reLaunch({ url: '/pages/login/login' });
           }, 1500);
