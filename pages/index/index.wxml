@@ -83,7 +83,8 @@
         </view>
         <view class="user-info">
           <view class="nickname">本地用户</view>
-          <view class="user-desc">欢迎使用估值小助手</view>
+          <view class="user-desc" wx:if="{{isLogin}}" style="background:#e8f5e9; color:#00b578;">已登录</view>
+          <view class="user-desc" wx:else style="background:#ffebee; color:#f54343;">已退出</view>
         </view>
       </view>
 
@@ -106,7 +107,7 @@
         </view>
       </view>
       
-      <button class="logout-btn" bindtap="onLogout">退出登录</button>
+      <button class="logout-btn" bindtap="onLogout" wx:if="{{isLogin}}">退出登录</button>
       
       <view class="footer-tip">—— 让记录更简单 ——</view>
     </view>

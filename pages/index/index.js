@@ -218,10 +218,10 @@ Page({
       success: (res) => {
         if (res.confirm) {
           wx.clearStorageSync();
-          this.setData({ isLogin: false, userInfo: null });
+          this.setData({ isLogin: false, userInfo: null, currentTab: 0 });
           wx.showToast({ title: '已退出登录', icon: 'success' });
           setTimeout(() => {
-            wx.navigateTo({ url: '/pages/login/login' });
+            wx.reLaunch({ url: '/pages/login/login' });
           }, 1500);
         }
       }
