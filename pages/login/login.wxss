@@ -85,3 +85,156 @@
   border-radius: 44rpx;
   font-weight: 500;
 }
+
+/* 登录页面样式 */
+.login-page {
+  min-height: 100vh;
+  background: #f6f7f8;
+  display: flex;
+  flex-direction: column;
+}
+
+.header-banner {
+  height: 120rpx;
+  background: linear-gradient(90deg, #2b85e4, #00d2ff);
+}
+
+.main-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 40rpx;
+}
+
+.guide-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 80rpx;
+}
+
+.logo-box {
+  margin-bottom: 60rpx;
+}
+
+.logo-emoji {
+  font-size: 120rpx;
+  display: inline-block;
+}
+
+.guide-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20rpx;
+  display: block;
+  text-align: center;
+}
+
+.guide-desc {
+  font-size: 26rpx;
+  color: #999;
+  text-align: center;
+  display: block;
+}
+
+.action-box {
+  margin-top: 60rpx;
+}
+
+.prominent-btn {
+  width: 100% !important;
+  height: 88rpx;
+  background: linear-gradient(90deg, #2b85e4, #00d2ff) !important;
+  color: #fff;
+  border-radius: 16rpx;
+  font-size: 30rpx;
+}
+
+.profile-section {
+  display: flex;
+  align-items: center;
+  margin-bottom: 60rpx;
+}
+
+.avatar-wrap {
+  position: relative;
+  margin-right: 30rpx;
+}
+
+.user-avatar {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  border: 4rpx solid #f0f7ff;
+}
+
+.online-indicator {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 24rpx;
+  height: 24rpx;
+  background: #00b578;
+  border-radius: 50%;
+  border: 4rpx solid #fff;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.user-nickname {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 12rpx;
+}
+
+.status-tag {
+  display: flex;
+  align-items: center;
+  font-size: 24rpx;
+  color: #00b578;
+}
+
+.status-tag .dot {
+  width: 12rpx;
+  height: 12rpx;
+  background: #00b578;
+  border-radius: 50%;
+  margin-right: 8rpx;
+  display: inline-block;
+}
+
+.action-btn {
+  width: 100% !important;
+  height: 88rpx;
+  border-radius: 16rpx;
+  font-size: 30rpx;
+}
+
+.logout-btn {
+  background: #ff5555 !important;
+  color: #fff !important;
+}
+
+.footer-section {
+  margin-top: 40rpx;
+}
+
+.divider {
+  height: 1rpx;
+  background: #eee;
+  margin-bottom: 20rpx;
+}
+
+.exit-btn {
+  width: 100% !important;
+  height: 80rpx;
+  color: #999;
+  font-size: 28rpx;
+}

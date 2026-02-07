@@ -30,7 +30,7 @@
     <block wx:else>
       <view class="guide-section">
         <view class="logo-box">
-          <image class="logo-placeholder" src="/images/user-default.png" mode="aspectFit"></image>
+          <text class="logo-emoji">👤</text>
         </view>
         <text class="guide-title">{{title}}</text>
         <text class="guide-desc">{{desc}}</text>
